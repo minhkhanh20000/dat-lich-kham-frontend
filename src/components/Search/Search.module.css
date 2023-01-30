@@ -1,0 +1,18 @@
+.search {
+  padding: 1rem;
+  width: 40rem;
+  outline: none;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 1rem;
+}
+
+.boxSearch {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.boxSearch > svg {
+  font-size: 3rem;
+}

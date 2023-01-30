@@ -1,0 +1,75 @@
+.box {
+  width: 100%;
+  height: 30rem;
+  background-repeat: no-repeat;
+  display: flex;
+  font-size: 2rem;
+  padding-top: 8rem;
+  margin-bottom: 2rem;
+}
+
+.boxLeft > * {
+  line-height: 2rem;
+}
+.boxLeft > p:first-child {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: rgb(134, 255, 249);
+}
+
+.boxLeft > h2,
+.boxLeft > p:last-child {
+  font-size: 2.4rem;
+  color: #fff;
+}
+
+.boxRight {
+  line-height: 2.6rem;
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.image {
+  width: 100%;
+  height: 20rem;
+  border-radius: 10px;
+}
+
+.infor {
+  width: 30rem;
+  height: 20rem;
+  background-color: #fff;
+  padding: 2rem 2.2rem;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  transition: all 0.5s ease;
+}
+
+.infor:hover {
+  transform: translate(-50%, 90%);
+}
+
+.infor:hover .title {
+  color: var(--color-primary);
+}
+
+.boxCard {
+  width: 35rem;
+  position: relative;
+}
+.title {
+  color: var(--color-back);
+  font-size: 2.2rem;
+  font-weight: 600;
+  padding: 1rem;
+  transition: all 0.5s ease;
+}
+
+.description {
+  color: var(--color-text);
+  line-height: 2rem;
+  font-size: 1.6rem;
+}

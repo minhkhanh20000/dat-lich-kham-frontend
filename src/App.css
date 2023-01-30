@@ -1,0 +1,164 @@
+body,
+html {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  max-width: 1920px;
+  overflow-x: hidden;
+  font-family: 'Averta,serif';
+}
+#body {
+  overflow-y: scroll !important;
+}
+
+html {
+  font-size: 62.5% !important;
+}
+
+#root {
+  height: 100%;
+}
+
+.rbc-toolbar-label {
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+
+.rbc-header {
+  padding: 20px 3px !important;
+  font-size: 1.5rem !important;
+}
+
+.rbc-button-link {
+  font-size: 2rem !important;
+  padding: 2rem !important;
+  transition: all 0.5s ease;
+  border-radius: 10px;
+}
+
+.rbc-today {
+  background-color: rgb(6, 131, 169) !important;
+}
+
+.rbc-date-cell.rbc-now {
+  color: #fff !important;
+}
+
+.rbc-toolbar {
+  padding: 2rem 0;
+}
+.rbc-toolbar button {
+  padding: 1rem 4rem !important;
+}
+
+.rbc-date-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.rbc-date-cell:hover .rbc-button-link {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.react-calendar {
+  width: 100% !important;
+  font-size: 1.8rem !important;
+}
+
+.react-calendar__tile {
+  /* padding: 3rem !important; */
+}
+
+span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
+  text-transform: capitalize;
+}
+.table > :not(caption) > * > * {
+  padding: 2rem !important;
+  font-size: 1.6rem;
+}
+
+.btn-button {
+  border: none;
+  outline: none;
+  padding: 1.5rem 2rem;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.btn-button-primary {
+  background-color: #2378f7;
+  color: #fff;
+}
+.btn-button-primary svg {
+  transition: all 0.7s ease;
+}
+
+.btn-button-primary:hover > svg {
+  transform: translateX(3px);
+}
+
+.Toastify__toast-body > div:last-child {
+  font-size: 1.7rem;
+}
+
+.css-1fdsijx-ValueContainer {
+  font-size: 16px;
+}
+
+.nav-link.active {
+  background-color: var(--color-primary) !important;
+}
+
+.rdrCalendarWrapper,
+.rdrMonth {
+  width: 100% !important;
+}
+
+.sun-editor {
+  height: 500px !important;
+}
+.sun-editor .se-wrapper {
+  height: 400px !important;
+}
+
+.css-13cymwt-control {
+  font-size: 1.4rem;
+}
+
+.css-qbdosj-Input {
+  font-size: 1.5rem !important;
+}
+
+.css-1dimb5e-singleValue {
+  padding: 1rem !important;
+}
+
+.rmdp-container {
+  visibility: visible !important;
+}
+
+.rmdp-input {
+  padding: 2rem !important;
+  font-size: 1.4rem !important;
+  height: 4rem;
+}
+
+.rmdp-border-right {
+  width: 600px !important;
+}
+
+.rmdp-panel.right {
+  width: 200px !important;
+}
+
+.rmdp-day {
+  padding: 3rem !important;
+}
+
+.rmdp-day-hidden,
+.rmdp-day.rmdp-disabled {
+  font-weight: 900;
+}

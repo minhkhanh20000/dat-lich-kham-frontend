@@ -1,0 +1,46 @@
+.root {
+  /* background-color: #f1eff2; */
+}
+.image {
+  width: 100%;
+  clip-path: polygon(14% 0, 100% 0%, 100% 99%, 0% 100%);
+  height: 100vh;
+  background-image: url('https://id-v121.medpro.com.vn/static/media/cover-14.cdc08a1d.jpg');
+  background-size: cover;
+  background-position: 50%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.boxForm {
+  padding: 3rem 8rem;
+}
+.text {
+  font-size: 1.6rem;
+  color: var(---color-black);
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: 600;
+}
+
+input.form {
+  font-size: 1.6rem;
+}
+
+.textRegister {
+  font-size: 1.6rem;
+  padding-top: 1rem;
+}
+
+.inputError {
+  border: 1px solid red;
+}
+.inputError:focus {
+  border-color: red;
+  box-shadow: 0 0 0 0.25rem rgba(252, 38, 38, 0.5);
+}

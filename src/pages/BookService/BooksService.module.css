@@ -1,0 +1,41 @@
+.search {
+  padding: 1rem;
+  width: 100%;
+  outline: none;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
+.boxSearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  width: 80%;
+}
+.boxSearch > svg {
+  font-size: 3rem;
+}
+
+.list {
+}
+
+.list > li {
+  font-size: 1.6rem;
+  padding: 1.6rem 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #dddddd;
+  width: 98%;
+  cursor: pointer;
+}
+
+.list > li:hover {
+  color: var(--color-primary);
+}
+.wrapperContent {
+  padding: 0 2rem;
+  border: 1px solid #c1c1c1;
+}

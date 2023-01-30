@@ -1,0 +1,30 @@
+.profile {
+}
+
+.profileBarList {
+}
+.profileBarItem {
+  font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: rgb(18, 38, 63);
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  padding: 1.4rem 0 1.4rem 2rem;
+}
+
+.profileBarItem:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: rgb(98, 119, 146);
+  cursor: pointer;
+}
+.active {
+  background-color: rgb(221 231 247);
+  color: rgb(3, 82, 204);
+}
+
+.profileBarItem svg {
+  margin-right: 1rem;
+  font-size: 1.8rem;
+}

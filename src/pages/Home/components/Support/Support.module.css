@@ -1,0 +1,36 @@
+.image {
+  width: 10rem;
+  display: block;
+  margin: auto;
+}
+.headTitle {
+  color: var(--color-black);
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 600;
+  padding-bottom: 4rem;
+}
+
+.boxCard {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 3rem 0;
+  border-radius: 1rem;
+}
+
+.title,
+.detail {
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 1.8rem;
+  display: block;
+}
+.box {
+  transition: all 0.3s ease-in-out;
+  background: #fff;
+}
+.box:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 9%);
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+input.form {
+  font-size: 1.6rem;
+}
+
+.textRegister {
+  font-size: 1.6rem;
+  padding-top: 3rem;
+}
+
+.inputError {
+  border: 1px solid red;
+}
+.inputError:focus {
+  border-color: red;
+  box-shadow: 0 0 0 0.25rem rgba(252, 38, 38, 0.5);
+}

@@ -1,0 +1,54 @@
+.title {
+  font-size: 2rem;
+  padding: 2rem 0;
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+.timeItem {
+  font-size: 1.6rem;
+  color: #0352cc;
+  border: 1px solid #045fe8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  width: 15rem;
+}
+
+.timeDisble {
+  width: 15rem;
+  cursor: no-drop;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.timeItem:hover,
+.timeActive {
+  background-color: #0352cc;
+  color: #fff;
+}
+
+.warning {
+  font-size: 1.6rem;
+  color: rgb(255, 132, 0);
+  font-weight: 600;
+  margin-top: 4rem;
+}
+
+.buttonContuine {
+  border: none;
+  padding: 1.2rem 3rem;
+  background-color: #2378f7;
+  color: #fff;
+  font-size: 1.6rem;
+  border-radius: 5px;
+}
+
+.emptySlot {
+  font-size: 1.5rem;
+  padding-top: 0.6rem;
+  color: rgb(247, 82, 82);
+  display: block;
+  font-weight: 600;
+}

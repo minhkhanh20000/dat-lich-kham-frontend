@@ -1,0 +1,17 @@
+tr.title {
+  font-weight: 600;
+  border-bottom: 3px solid #c1c1c1;
+}
+
+.boxTable {
+  border: 1px solid #c1c1c1;
+  padding: 4rem 0 5rem 0;
+}
+
+tr > td > svg {
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+.deleteIcon {
+  cursor: pointer;
+}
