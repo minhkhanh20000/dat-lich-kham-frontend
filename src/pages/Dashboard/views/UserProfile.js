@@ -33,7 +33,7 @@ function ModelUser({ user, isShow, onClose, onSuccess }) {
   return (
     <Modal show={isShow} onHide={() => onClose()}>
       <Modal.Header closeButton>
-        <Modal.Title>Chỉnh sửa người dùng: {user?.hoTen}</Modal.Title>
+        <Modal.Title>Chỉnh sửa người dùng: </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -191,14 +191,6 @@ function User() {
                     <td>{user.tenQuyen}</td>
                     <td>
                       <div className="d-flex flex-column justify-content-center align-items-center">
-                        <button
-                          className="btn-button bg-danger text-light py-2 px-4 mx-2 mb-2"
-                          style={{
-                            width: '10rem',
-                          }}
-                        >
-                          Khóa
-                        </button>
                         <button
                           className="btn-button bg-primary text-light p-2"
                           style={{

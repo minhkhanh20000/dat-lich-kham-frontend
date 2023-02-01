@@ -261,29 +261,23 @@ export const ProfileCalender = () => {
         nam: 2023,
       });
       toastify('success', res.message);
+      fetchData(params);
     } catch (error) {}
   };
 
-  const handleOnChangeDateWeek = () => {
-    setActive(0);
-    setLimitDate({
-      startOf: moment().startOf('week').toDate(),
-      endOf: moment().endOf('week').toDate(),
-    });
+  const onMapsDay = ({ date, today }) => {
+    return {
+      disabled: props.value.includes(date),
+    };
   };
-  const handleOnChangeDateMonth = () => {
-    setActive(1);
-    setLimitDate({
-      startOf: moment().startOf('month').toDate(),
-      endOf: moment().endOf('month').toDate(),
-    });
-  };
+
   const fetchData = async (params) => {
     const res = await lichLamViecUserApi.getLichLamViecUser(params);
     setResDetail(res);
 
     if (res?.lich) {
       const colors = JSON.parse(res.lich);
+
       const newColor = {
         blue: colors.blue?.map(toDateObject) || [],
         yellow: colors.yellow?.map(toDateObject) || [],
@@ -295,10 +289,22 @@ export const ProfileCalender = () => {
           newColor[color][index].color = color;
         });
       });
+      const newValue = [
+        ...newColor?.blue,
+        ...newColor?.green,
+        ...newColor?.yellow,
+      ];
+      console.log('props', props);
       setProps({
+        ...props,
+        activeColor: 'blue',
+        readOnly: false,
+        weekNumber: 'Tuần',
+        weekStartDayIndex: 0,
         multiple: true,
-        value: [...newColor?.blue, ...newColor?.yellow, ...newColor?.green],
+        value: [...newValue],
       });
+
       setLoading(false);
     } else {
       console.log('lot');
@@ -311,14 +317,18 @@ export const ProfileCalender = () => {
     }
   };
   useEffect(() => {
+    console.log('render');
     fetchData(params);
   }, [params]);
+
+  console.log(props);
 
   if (loading) return <Loading />;
   return (
     <div
       style={{
         width: '100%',
+        minHeight: '80vh',
       }}
     >
       <h5 className="text-center mb-5 fw-bold">
@@ -380,7 +390,7 @@ export const ProfileCalender = () => {
           </ul>
         </div>
 
-        {resDetail.trangThai === 0 ? (
+        {resDetail?.trangThai === 0 || !resDetail?.trangThai ? (
           <>
             {!!resDetail?.lich ? (
               <button
@@ -402,27 +412,16 @@ export const ProfileCalender = () => {
           <Chip variant="red" status="Đã xét duyệt" />
         )}
       </div>
-      <div className="mb-4 d-flex gap-4">
-        <button
-          className={`btn-button ${active === 0 && 'btn-button-primary'}`}
-          onClick={handleOnChangeDateWeek}
-        >
-          Tuần
-        </button>
-        <button
-          className={`btn-button ${active === 1 && 'btn-button-primary'}`}
-          onClick={handleOnChangeDateMonth}
-        >
-          Tháng
-        </button>
-      </div>
+
       <Calendar
         {...props}
         weekStartDayIndex={0}
-        readOnly={resDetail.trangThai === 0 ? false : true}
+        readOnly={
+          resDetail?.trangThai === 0 || !resDetail?.trangThai ? false : true
+        }
         displayWeekNumbers
-        minDate={limitDate.startOf}
-        maxDate={limitDate.endOf}
+        minDate={new Date()}
+        mapDays={onMapsDay}
         weekNumber="Tuần"
         onPropsChange={setProps}
         locale={gregorian_en_lowercase}

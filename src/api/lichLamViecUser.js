@@ -35,10 +35,20 @@ export const lichLamViecUserApi = {
       toastify('error', error.message);
     }
   },
-  async acceptCalender(maND, trangThai) {
+  async acceptCalender(maND, trangThai, thang) {
     try {
-      const res = await axiosClient.put(`accept-calender/${maND}/${trangThai}`);
+      const res = await axiosClient.put(
+        `accept-calender/${maND}/${trangThai}/${thang}`
+      );
       return res;
+    } catch (error) {
+      toastify('error', error.message);
+    }
+  },
+  async getLichLamViecByMonth(params) {
+    try {
+      const res = await axiosClient.get(`get-lich-lam-viec-month`, { params });
+      return res.data;
     } catch (error) {
       toastify('error', error.message);
     }

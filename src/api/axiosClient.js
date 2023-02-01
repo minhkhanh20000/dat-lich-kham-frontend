@@ -1,8 +1,11 @@
 import axios from 'axios';
 // import { toast } from 'react-toastify';
 
+const dev = 'http://localhost:5000/api/';
+export const production = 'https://dat-lich-kham.onrender.com/api/';
+
 const axiosClient = axios.create({
-  baseURL: 'https://dat-lich-kham.onrender.com/api/',
+  baseURL: dev,
 });
 
 axiosClient.interceptors.request.use(async (config) => {

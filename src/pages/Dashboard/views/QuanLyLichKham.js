@@ -49,7 +49,7 @@ function ModelNote({ user, isShow, onClose, onSuccess }) {
       }}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Thông tin khám: {user?.hoTen}</Modal.Title>
+        <Modal.Title>Thông tin khám: </Modal.Title>
       </Modal.Header>
 
       <Modal.Body className="show-grid">

@@ -50,14 +50,6 @@ function ManagerPost() {
       <Container style={{ marginTop: '9rem' }}>
         <Row>
           <div className="d-flex justify-content-between my-2">
-            <div className={styles.boxSearch}>
-              <input
-                placeholder="Nhập từ khóa tìm kiếm..."
-                className={styles.search}
-              />
-              <GoSearch />
-            </div>
-
             <div>
               <button
                 className="btn-button btn-button-primary"
