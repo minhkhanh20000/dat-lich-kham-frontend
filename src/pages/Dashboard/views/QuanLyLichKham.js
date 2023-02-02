@@ -18,7 +18,7 @@ import { Loading } from '../../../components/Loading';
 import { formatDate, toastify } from '../../../utils/common';
 import styles from './Dashboard.module.css';
 
-function ModelNote({ user, isShow, onClose, onSuccess }) {
+export function ModelNote({ user, isShow, onClose, onSuccess }) {
   const [disabled, setDisabled] = useState(false);
   const [ghiChu, setGhiChu] = useState(user.ghiChu);
   const handleOnSubmit = async () => {

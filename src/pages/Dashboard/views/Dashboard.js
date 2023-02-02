@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 // react-bootstrap components
 import { Col, Container, Row, Table } from 'react-bootstrap';
 import { datLichApi } from '../../../api/datLich';
+import { lichLamViecApi } from '../../../api/lichLamViecApi';
 import { userApi } from '../../../api/userApi';
 import { Chip } from '../../../components/Chip/Chip';
 import { Loading } from '../../../components/Loading';
 import { formatDate, toastify } from '../../../utils/common';
 import iconuser from '../assets/images/iconuser.png';
 import stethoscope from '../assets/images/stethoscope.png';
+import styles from './Dashboard.module.css';
+import { ModelNote } from './QuanLyLichKham';
 
 function Dashboard() {
   const [totalService, setTotalService] = useState(0);
@@ -16,8 +19,33 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
   const [isShow, setIsShow] = useState(false);
+  const [lich, setLich] = useState([]);
   const [dataDatLich, setDataDatLich] = useState();
+  const [keyTime, setKeyTime] = useState(0);
+  const [params, setParams] = useState({
+    maThoiGian: '',
+    thoiGianDky: formatDate(new Date()),
+  });
 
+  const optionTime = React.useMemo(() => {
+    return lich.map((item) => {
+      return {
+        value: item.maTG,
+        label: `${item.thoiGianBatDau} - ${item.thoiGianKetThuc}`,
+      };
+    });
+  }, [lich]);
+
+  const fetchGetTime = async () => {
+    try {
+      const res = await lichLamViecApi.getThoiGianLamViec();
+      setLich(res.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchGetTime();
+  }, []);
   const fetchTotalService = async () => {
     try {
       const res = await datLichApi.countDatLich();
@@ -37,11 +65,8 @@ function Dashboard() {
 
   useEffect(() => {
     fetchTotalService();
-    fetchDataDatLich({
-      maThoiGian: '',
-      thoiGianDky: formatDate(new Date()),
-    });
-  }, []);
+    fetchDataDatLich(params);
+  }, [params]);
 
   const handleOnConfirm = (maND, maThoiGian, thoiGianDky) => {
     try {
@@ -65,11 +90,16 @@ function Dashboard() {
     } catch (error) {}
   };
 
+  const handleOnClose = () => {
+    setIsShow(false);
+  };
+
   const memoDatLich = React.useMemo(() => {
     return dataDatLich?.data?.filter(
       (item) => item.tinhTrangDangKy === 'Success'
     );
   });
+
   if (loading) return <Loading />;
   return (
     <div style={{ marginTop: '9rem' }}>
@@ -179,7 +209,81 @@ function Dashboard() {
 
         <Row>
           <div>
-            {memoDatLich.length > 0 && (
+            <div>
+              <div className="d-flex justify-content-between align-items-center mt-3">
+                <h5
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  Thời gian:
+                </h5>
+              </div>
+
+              <div className="d-flex justify-content-between gap-2 flex-wrap">
+                <div
+                  className={`${styles.boxTime} ${
+                    keyTime === 0 && styles.boxTimeActive
+                  }`}
+                  style={{
+                    userSelect: 'none',
+                    padding: '1rem 2rem',
+                    backgroundColor: '#fff',
+                    marginBottom: '1rem',
+                    color: '#000',
+                    fontSize: '1.4rem',
+                    width: '12%',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    border: '1px solid var(--color-primary)',
+                    textAlign: 'center',
+                  }}
+                  onClick={() => {
+                    setParams({
+                      ...params,
+                      maThoiGian: '',
+                    });
+                    setKeyTime(0);
+                  }}
+                >
+                  <p className="text-center">Tất cả</p>
+                </div>
+                {optionTime.map((item) => (
+                  <div
+                    className={`${styles.boxTime} ${
+                      keyTime === item.value && styles.boxTimeActive
+                    }`}
+                    style={{
+                      userSelect: 'none',
+                      padding: '1rem 2rem',
+                      backgroundColor: '#fff',
+                      marginBottom: '1rem',
+                      color: '#000',
+                      fontSize: '1.4rem',
+                      width: '12%',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      border: '1px solid var(--color-primary)',
+                    }}
+                    key={item.value}
+                    onClick={() => {
+                      setParams({
+                        ...params,
+                        maThoiGian: item.value,
+                      });
+                      setKeyTime(item.value);
+                    }}
+                  >
+                    <p className="text-center">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Row>
+        <Row>
+          <div>
+            {dataDatLich?.total > 0 && (
               <Table striped bordered hover size="sm">
                 <thead>
                   <tr>
@@ -193,7 +297,7 @@ function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {memoDatLich?.map((item, index) => (
+                  {dataDatLich?.data?.map((item, index) => (
                     <tr>
                       <td>{index + 1}</td>
                       <td>{item.hoTen}</td>
@@ -241,6 +345,14 @@ function Dashboard() {
                           </button>
                         </div>
                       </td>
+                      {isShow && (
+                        <ModelNote
+                          user={item}
+                          isShow={isShow}
+                          onClose={handleOnClose}
+                          onSuccess={() => fetchDataDatLich(params)}
+                        />
+                      )}
                     </tr>
                   ))}
                 </tbody>

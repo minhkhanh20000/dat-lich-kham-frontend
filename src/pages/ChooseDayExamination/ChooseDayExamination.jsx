@@ -30,7 +30,6 @@ export default function ChooseDayExamination() {
     return previous;
   }
   const tileDisabled = ({ activeStartDate, date, view }) => {
-    console.log(date);
     return date < getPreviousDay(new Date());
   };
 
@@ -67,6 +66,7 @@ export default function ChooseDayExamination() {
     try {
       const res = await datLichApi.getDatLich({
         ngayDatLich: moment(dateData).format('YYYY-MM-DD'),
+        maKhoa: department.maKhoa,
       });
       setDataDatLich(res.data);
     } catch (error) {}
