@@ -38,12 +38,6 @@ const ChooseService = () => {
       <HeadTitle title="Vui lòng chọn chuyên khoa" />
 
       <div className={styles.wrapperContent}>
-        <div className={styles.boxSearch} style={{ width: '100%' }}>
-          <input
-            placeholder="Tìm nhanh chuyên khoa"
-            className={styles.search}
-          />
-        </div>
         <div>
           <Scrollbars style={{ width: '100%', height: 300 }}>
             <ul className={styles.list}>
