@@ -16,6 +16,7 @@ export function CardTicker({ item, isCheck, onClick }) {
     hoTen,
     SDT,
     maND,
+    lyDo,
     maThoiGian,
     thoiGianDky,
     thoiGianBatDau,
@@ -97,6 +98,12 @@ export function CardTicker({ item, isCheck, onClick }) {
                 Khoa:
               </span>
               <span style={{ color: 'red', fontWeight: '600' }}>{tenKhoa}</span>
+            </Card.Text>
+            <Card.Text style={{ marginBottom: '10px', fontSize: '14px' }}>
+              <span style={{ fontWeight: 600, paddingRight: '8px' }}>
+                Lý do:
+              </span>
+              <span style={{ color: 'red', fontWeight: '600' }}>{lyDo}</span>
             </Card.Text>
             <Card.Text style={{ marginBottom: '10px', fontSize: '14px' }}>
               <span style={{ fontWeight: 600, paddingRight: '8px' }}>
