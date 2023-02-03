@@ -5,7 +5,7 @@ const dev = 'http://localhost:5000/api/';
 export const production = 'https://dat-lich-kham.onrender.com/api/';
 
 const axiosClient = axios.create({
-  baseURL: dev,
+  baseURL: production,
 });
 
 axiosClient.interceptors.request.use(async (config) => {
