@@ -162,3 +162,7 @@ span.react-calendar__navigation__label__labelText.react-calendar__navigation__la
 .rmdp-day.rmdp-disabled {
   font-weight: 900;
 }
+.sun-editor .se-wrapper .se-wrapper-wysiwyg {
+    display: block;
+    height: 500px!important;
+}
