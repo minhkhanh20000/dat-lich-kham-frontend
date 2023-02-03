@@ -28,7 +28,6 @@ function ModelUser({ user, isShow, onClose, onSuccess }) {
         maKhoa,
         lyLichCongTac,
       } = values;
-      console.log(values);
       const formData = new FormData();
       formData.append('chuyenNganh', chuyenNganh);
       formData.append('truongTotNghiep', truongTotNghiep);

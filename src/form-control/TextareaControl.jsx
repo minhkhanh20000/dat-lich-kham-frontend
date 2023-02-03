@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap';
 import styles from './InputControl.module.css';
 import moment from 'moment';
 
-function TextareaControl({ name, control, placeholder, type }) {
+function TextareaControl({ name, control, placeholder, type, rows }) {
   return (
     <Controller
       name={name}
@@ -18,7 +18,7 @@ function TextareaControl({ name, control, placeholder, type }) {
           <textarea
             class="form-control"
             id="exampleFormControlTextarea1"
-            rows="3"
+            rows={rows || 3}
             style={{ width: '100%', fontSize: '1.6rem', color: '#565656' }}
             type={type}
             className={`${styles.form} ${`p-4 h4 m-0`} ${

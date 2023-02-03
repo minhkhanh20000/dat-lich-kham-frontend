@@ -62,7 +62,6 @@ const EditorPost = () => {
 
   const handleOnSubmit = async (data) => {
     const { mota, tieude } = data;
-    console.log(dataImage);
     try {
       if (!body) {
         toastify('error', 'Nội dung không được bỏ trống');
@@ -80,7 +79,6 @@ const EditorPost = () => {
         navigate(-1);
       }
     } catch (error) {
-      console.log(error);
       toastify('error', 'Lỗi đăng bài');
     }
   };

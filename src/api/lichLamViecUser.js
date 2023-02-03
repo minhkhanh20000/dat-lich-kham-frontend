@@ -35,10 +35,10 @@ export const lichLamViecUserApi = {
       toastify('error', error.message);
     }
   },
-  async acceptCalender(maND, trangThai, thang) {
+  async acceptCalender(maND, trangThai, thang, lydohuy) {
     try {
       const res = await axiosClient.put(
-        `accept-calender/${maND}/${trangThai}/${thang}`
+        `accept-calender/${maND}/${trangThai}/${thang}/${lydohuy}`
       );
       return res;
     } catch (error) {

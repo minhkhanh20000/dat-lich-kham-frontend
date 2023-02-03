@@ -243,8 +243,10 @@ export const ProfileCalender = () => {
         lich: JSON.stringify(values),
         thang: month,
         nam: 2023,
+        trangThai: 0,
       });
       toastify('success', res.message);
+      fetchData(params);
     } catch (error) {}
   };
   const handleOnSubmit = async () => {
@@ -259,6 +261,7 @@ export const ProfileCalender = () => {
         lich: JSON.stringify(values),
         thang: month,
         nam: 2023,
+        trangThai: 0,
       });
       toastify('success', res.message);
       fetchData(params);
@@ -294,7 +297,6 @@ export const ProfileCalender = () => {
         ...newColor?.green,
         ...newColor?.yellow,
       ];
-      console.log('props', props);
       setProps({
         ...props,
         activeColor: 'blue',
@@ -307,7 +309,6 @@ export const ProfileCalender = () => {
 
       setLoading(false);
     } else {
-      console.log('lot');
       setLoading(false);
 
       setProps({
@@ -317,11 +318,8 @@ export const ProfileCalender = () => {
     }
   };
   useEffect(() => {
-    console.log('render');
     fetchData(params);
   }, [params]);
-
-  console.log(props);
 
   if (loading) return <Loading />;
   return (
@@ -390,15 +388,19 @@ export const ProfileCalender = () => {
           </ul>
         </div>
 
-        {resDetail?.trangThai === 0 || !resDetail?.trangThai ? (
+        {resDetail?.trangThai === 0 ||
+        resDetail?.trangThai === 2 ||
+        !resDetail?.trangThai ? (
           <>
             {!!resDetail?.lich ? (
-              <button
-                className="btn-button btn-button-primary"
-                onClick={handleOnEdit}
-              >
-                Chỉnh sửa
-              </button>
+              <>
+                <button
+                  className="btn-button btn-button-primary"
+                  onClick={handleOnEdit}
+                >
+                  Chỉnh sửa
+                </button>
+              </>
             ) : (
               <button
                 className="btn-button btn-button-primary"
@@ -413,11 +415,31 @@ export const ProfileCalender = () => {
         )}
       </div>
 
+      {resDetail?.trangThai === 2 && (
+        <div className="my-4 d-flex">
+          <Chip variant="red" status="Đã bị hủy" />
+          <p className="px-2">
+            Lý do:{' '}
+            <strong
+              style={{
+                fontWeight: 'bold',
+              }}
+            >
+              {resDetail.lydohuy}
+            </strong>
+          </p>
+        </div>
+      )}
+
       <Calendar
         {...props}
         weekStartDayIndex={0}
         readOnly={
-          resDetail?.trangThai === 0 || !resDetail?.trangThai ? false : true
+          resDetail?.trangThai === 0 ||
+          resDetail?.trangThai === 2 ||
+          !resDetail?.trangThai
+            ? false
+            : true
         }
         displayWeekNumbers
         minDate={new Date()}

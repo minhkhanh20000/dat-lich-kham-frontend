@@ -6,7 +6,6 @@ import { Form } from 'react-bootstrap';
 import styles from './InputControl.module.css';
 
 function SelectControl({ name, control, placeholder, values }) {
-  console.log(values);
   return (
     <Controller
       name={name}

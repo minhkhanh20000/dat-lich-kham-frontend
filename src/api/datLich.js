@@ -7,7 +7,6 @@ export const datLichApi = {
       const res = await axiosClient.get('dat-lich', {
         params: params,
       });
-      console.log(res);
       return res;
     } catch (error) {
       toastify('error', error.message);

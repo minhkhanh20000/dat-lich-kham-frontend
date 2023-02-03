@@ -4,6 +4,8 @@ import DatePickerHeader from 'react-multi-date-picker/plugins/date_picker_header
 import { lichLamViecUserApi } from '../../../api/lichLamViecUser';
 import multiColors from 'react-multi-date-picker/plugins/colors';
 import Button from 'react-bootstrap/Button';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import { userApi } from '../../../api/userApi';
 import { Loading } from '../../../components/Loading';
@@ -11,7 +13,11 @@ import { ruleUser, toastify } from '../../../utils/common';
 import { Chip } from '../../../components/Chip/Chip';
 import moment from 'moment';
 import { Modal } from 'react-bootstrap';
-
+import TextareaControl from '../../../form-control/TextareaControl';
+import { yupResolver } from '@hookform/resolvers/yup';
+const schema = yup.object().shape({
+  lydohuy: yup.string().required('Ghi chú không được bỏ'),
+});
 const gregorian_en_lowercase = {
   name: 'gregorian_en_lowercase',
   months: [
@@ -52,9 +58,16 @@ const initialProps = {
 const toDateObject = (day) => new DateObject(day);
 
 const ModalCalender = ({ data, isShow, onClose, onSubmit }) => {
-  const { lich, trangThai, maND, thang } = data;
-  console.log(moment().startOf('month').month(0)._d);
+  const { lich, trangThai, maND, thang, lydohuy } = data;
+  const { control, reset, handleSubmit } = useForm({
+    defaultValues: {
+      lydohuy,
+    },
+    resolver: yupResolver(schema),
+  });
+
   const [props, setProps] = useState(initialProps);
+  const [showDescription, setShowDescription] = useState(false);
 
   useEffect(() => {
     if (lich) {
@@ -77,128 +90,184 @@ const ModalCalender = ({ data, isShow, onClose, onSubmit }) => {
     }
   }, []);
 
+  const handleOnSubmit = (values) => {
+    if (values.lydohuy === undefined) {
+      onSubmit(maND, 2, thang, 'null');
+      onClose();
+    } else {
+      onSubmit(maND, 2, thang, values.lydohuy);
+      onClose();
+    }
+  };
+
   if (props.value.length <= 0) return <Loading />;
   return (
     <Modal show={isShow} onHide={() => onClose()}>
-      <div
-        style={{
-          padding: '20px',
-        }}
-      >
+      <form onSubmit={handleSubmit(handleOnSubmit)}>
         <div
-          className="d-flex align-items-center gap-3"
           style={{
-            padding: '20px 0',
+            padding: '20px',
           }}
         >
-          <p>Chú ý thời gian </p>
-          <ul className="d-flex align-align-items-center gap-4">
-            <li
-              className="d-flex align-align-items-center"
+          {trangThai === 2 && (
+            <p
+              className="text-center"
               style={{
-                fontSize: 15,
+                color: 'red',
               }}
             >
-              <p>Cả ngày:</p>
-              <div
-                style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: '100%',
-                  backgroundColor: '#0074d9',
-                }}
-              ></div>
-            </li>
-            <li
-              className="d-flex align-align-items-center"
-              style={{
-                fontSize: 15,
-              }}
-            >
-              <p>Buổi sáng:</p>
-              <div
-                style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: '100%',
-                  backgroundColor: '#009688',
-                }}
-              ></div>
-            </li>
-            <li
-              className="d-flex align-align-items-center"
-              style={{
-                fontSize: 15,
-              }}
-            >
-              <p>Buổi chiều:</p>
-              <div
-                style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: '100%',
-                  backgroundColor: '#fad817',
-                }}
-              ></div>
-            </li>
-          </ul>
-        </div>
-
-        <Calendar
-          readOnly={true}
-          {...props}
-          disableMonthPicker={true}
-          disabled={true}
-          locale={gregorian_en_lowercase}
-          plugins={[
-            multiColors({
-              position: 'left',
-              colors: ['blue', 'green', 'yellow'],
-            }),
-          ]}
-        />
-        <Modal.Footer
-          style={{
-            justifyContent: 'center',
-            fontSize: '1.5rem',
-          }}
-        >
-          <Button
-            variant="secondary"
-            onClick={() => onClose()}
-            className="mx-2"
+              Lịch làm việc bị hủy: {lydohuy}
+            </p>
+          )}
+          <div
+            className="d-flex align-items-center gap-3"
             style={{
+              padding: '20px 0',
+            }}
+          >
+            <p>Chú ý thời gian </p>
+            <ul className="d-flex align-align-items-center gap-4">
+              <li
+                className="d-flex align-align-items-center"
+                style={{
+                  fontSize: 15,
+                }}
+              >
+                <p>Cả ngày:</p>
+                <div
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: '100%',
+                    backgroundColor: '#0074d9',
+                  }}
+                ></div>
+              </li>
+              <li
+                className="d-flex align-align-items-center"
+                style={{
+                  fontSize: 15,
+                }}
+              >
+                <p>Buổi sáng:</p>
+                <div
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: '100%',
+                    backgroundColor: '#009688',
+                  }}
+                ></div>
+              </li>
+              <li
+                className="d-flex align-align-items-center"
+                style={{
+                  fontSize: 15,
+                }}
+              >
+                <p>Buổi chiều:</p>
+                <div
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: '100%',
+                    backgroundColor: '#fad817',
+                  }}
+                ></div>
+              </li>
+            </ul>
+          </div>
+
+          <Calendar
+            readOnly={true}
+            {...props}
+            disableMonthPicker={true}
+            disabled={true}
+            locale={gregorian_en_lowercase}
+            plugins={[
+              multiColors({
+                position: 'left',
+                colors: ['blue', 'green', 'yellow'],
+              }),
+            ]}
+          />
+          {(trangThai === 0 || trangThai === 1) && (
+            <div className="pt-4">
+              <TextareaControl
+                placeholder="Ghi chú"
+                name="lydohuy"
+                control={control}
+                type="text"
+                rows={2}
+              />
+            </div>
+          )}
+          <Modal.Footer
+            style={{
+              justifyContent: 'center',
               fontSize: '1.5rem',
             }}
           >
-            Đóng
-          </Button>
-          {trangThai === 0 ? (
-            <button
-              className="btn-button btn-button-primary mx-3"
-              onClick={() => {
-                onSubmit(maND, 1, thang);
-                onClose();
-              }}
-            >
-              Xác nhận
-            </button>
-          ) : (
-            <button
-              className="btn-button btn-button-primary mx-3"
-              onClick={() => {
-                onSubmit(maND, 0, thang);
-                onClose();
-              }}
+            <Button
+              variant="secondary"
+              onClick={() => onClose()}
+              className="mx-2"
               style={{
-                background: 'red',
+                fontSize: '1.5rem',
               }}
             >
-              Hủy xét duyệt
-            </button>
-          )}
-        </Modal.Footer>
-      </div>
+              Đóng
+            </Button>
+            {trangThai === 0 ? (
+              <div>
+                <button
+                  className="btn-button btn-button-primary mx-3"
+                  onClick={handleSubmit((value) => {
+                    onSubmit(
+                      maND,
+                      1,
+                      thang,
+                      value.lydohuy === undefined ? 'null' : value.lydohuy
+                    );
+                    onClose();
+                  })}
+                >
+                  Xác nhận
+                </button>
+                <button
+                  type="submit"
+                  className="btn-button btn-button-primary mx-3"
+                  style={{
+                    background: 'red',
+                  }}
+                >
+                  Không xác nhận
+                </button>
+              </div>
+            ) : trangThai === 1 ? (
+              <button
+                className="btn-button btn-button-primary mx-3"
+                onClick={handleSubmit((value) => {
+                  onSubmit(
+                    maND,
+                    2,
+                    thang,
+                    value.lydohuy === undefined ? 'null' : value.lydohuy
+                  );
+                  onClose();
+                })}
+                style={{
+                  background: 'red',
+                }}
+              >
+                Hủy xét duyệt
+              </button>
+            ) : (
+              ''
+            )}
+          </Modal.Footer>
+        </div>
+      </form>
     </Modal>
   );
 };
@@ -214,10 +283,8 @@ const QuanLyLichLamViec = () => {
   const fetchData = async () => {
     try {
       const res = await lichLamViecUserApi.getAllLichLamViecUser();
-      console.log(res[0]);
       if (res[0]?.lich) {
         const colors = JSON.parse(res[0].lich);
-        console.log(colors);
         const newColor = {
           blue: colors.blue?.map(toDateObject) || [],
           yellow: colors.yellow?.map(toDateObject) || [],
@@ -253,13 +320,13 @@ const QuanLyLichLamViec = () => {
     fetchDataDoctor();
   }, []);
 
-  const handleAccept = async (maND, trangThai, thang) => {
-    console.log(maND, trangThai);
+  const handleAccept = async (maND, trangThai, thang, lydohuy) => {
     try {
       const res = await lichLamViecUserApi.acceptCalender(
         maND,
         trangThai,
-        thang
+        thang,
+        lydohuy
       );
       toastify('success', res.message);
       fetchData();
@@ -267,14 +334,12 @@ const QuanLyLichLamViec = () => {
   };
 
   const handleClickMonth = async (thang, maND) => {
-    console.log(thang, maND);
     try {
       try {
         const res = await lichLamViecUserApi.getLichLamViecByMonth({
           thang,
           maND,
         });
-        console.log(res);
         setLichMonth(res[0]);
         setIsModal(true);
       } catch (error) {}
@@ -292,7 +357,6 @@ const QuanLyLichLamViec = () => {
       return r;
     }, Object.create(null));
   });
-  console.log(results);
   if (loading) return <Loading />;
   return (
     <div
@@ -323,7 +387,7 @@ const QuanLyLichLamViec = () => {
                   width: 20,
                   height: 20,
                   borderRadius: '100%',
-                  backgroundColor: 'red',
+                  backgroundColor: '#009688',
                 }}
               ></div>
             </li>
@@ -339,7 +403,23 @@ const QuanLyLichLamViec = () => {
                   width: 20,
                   height: 20,
                   borderRadius: '100%',
-                  backgroundColor: '#009688',
+                  backgroundColor: 'red',
+                }}
+              ></div>
+            </li>
+            <li
+              className="d-flex align-align-items-center"
+              style={{
+                fontSize: 15,
+              }}
+            >
+              <p>Bị hủy:</p>
+              <div
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '100%',
+                  backgroundColor: '#c1c1c1',
                 }}
               ></div>
             </li>
@@ -404,9 +484,9 @@ const QuanLyLichLamViec = () => {
                         width: '23%',
                         background:
                           item?.thang && item?.trangThai === 1
-                            ? 'red'
-                            : item?.thang && item?.trangThai === 0
                             ? '#009688'
+                            : item?.thang && item?.trangThai === 0
+                            ? 'red'
                             : '#c1c1c1',
                         padding: '10px',
                         borderRadius: '10px',

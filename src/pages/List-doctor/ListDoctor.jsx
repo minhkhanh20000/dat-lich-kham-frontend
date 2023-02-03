@@ -16,9 +16,17 @@ const CartDoctor = ({ user }) => {
         <div className={styles.cardInfo}>
           <p className="text-center">{user?.tenKhoa}</p>
         </div>
-        <p className="text-center">Số năm kinh nghiệm: {user.kinhNghiem}</p>
+        <p className="text-center pb-4">
+          Số năm kinh nghiệm: {user.kinhNghiem}
+        </p>
         <div className="px-4">
-          <p>Trường tốt nghiệp: {user.truongTotNghiep}</p>
+          <p
+            style={{
+              minHeight: '45px',
+            }}
+          >
+            Trường tốt nghiệp: {user.truongTotNghiep}
+          </p>
           <p
             style={{
               minHeight: '45px',
