@@ -5,7 +5,13 @@ export const ProtectedRoute = ({ isLogin, children }) => {
   if (!isLogin) {
     return <Navigate to="/auth/login" replace />;
   }
+  return children;
+};
 
+export const ProtectedRouteDoctor = ({ isLogin, children }) => {
+  if (!isLogin || isLogin.maQuyen === ruleUser.BACSI) {
+    return <Navigate to="/" replace />;
+  }
   return children;
 };
 

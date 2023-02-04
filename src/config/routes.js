@@ -18,7 +18,11 @@ import Home from '../pages/Home/Home';
 import Page404 from '../pages/NotFound/404';
 import ProfileUser from '../pages/ProfileUser/ProfileUser';
 import Introduce from '../pages/Introduce/Introduce';
-import { ProtectedRoute, ProtectedRouteAdmin } from './ProtectedRoute';
+import {
+  ProtectedRoute,
+  ProtectedRouteAdmin,
+  ProtectedRouteDoctor,
+} from './ProtectedRoute';
 import PageNews from '../pages/News/PageNews';
 import NewsDetails from '../pages/News/NewsDetails';
 import QuanLyLichKham from '../pages/Dashboard/views/QuanLyLichKham';
@@ -39,9 +43,9 @@ let routes = (isLogin) => [
       {
         path: '/dich-vu',
         element: (
-          <ProtectedRoute isLogin={isLogin}>
+          <ProtectedRouteDoctor isLogin={isLogin}>
             <BooksService />
-          </ProtectedRoute>
+          </ProtectedRouteDoctor>
         ),
         children: [
           { index: true, element: <ChooseService /> },
